@@ -1,6 +1,7 @@
 # udacity_fullstack-capstone
 The fifth and final project for the Udacity Full Stack Web Developer Nanodegree. Requires a combination of all skills learned in the previous projects.
 
+# Minimal functioning App
 
 ## Prerequisites
 1. Install the Heroku CLI
@@ -100,3 +101,17 @@ $ heroku config # check the app's environment variables
 1. Push to Heroku `git push heroku main`
 2. Open in browser `heroku open`
 3. If everything worked well you should be greeted with `"Hello, World!"`.
+
+# Further App Development
+
+## Prerequisites
+
+For this App PostGIS is required to process geospatial information. On Windows use `cmd.exe` and login with:
+
+```sh
+# login
+heroku pg:psql --app <APP NAME>
+# create extension
+create extension postgis;
+select postgis_version();
+```
