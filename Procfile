@@ -1,2 +1,2 @@
 web: gunicorn app:app
-release: ./release-tasks.sh
+release: bash ./release-tasks.sh
