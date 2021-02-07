@@ -1,18 +1,14 @@
-import os
-
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-db = SQLAlchemy(app)
+from .models import setup_db
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def create_app():
+    app = Flask(__name__)
+    setup_db(app)
 
-if __name__ == '__main__':
-    app.run()
+    @app.route('/')
+    def hello_world():
+        return 'Hello, World!'
+
+    return app
