@@ -9,7 +9,8 @@ manager = Manager(create_app)
 
 manager.add_command('db', MigrateCommand)
 
-
+# If run locally use .env file. This file is normally read by flask when
+# python-dotenv is installed, but flask_script does not use it.
 if os.path.exists('.env'):
     print('Importing environment from .env file')
     for line in open('.env'):
