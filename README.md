@@ -95,3 +95,8 @@ $ setup.sh # push environment variables for production to Heroku
 $ heroku config # check the app's environment variables
 ```
 
+## Run the App
+
+1. Push to Heroku `git push heroku main`
+2. Open in browser `heroku open`
+3. If everything worked well you should be greeted with `"Hello, World!"`.
