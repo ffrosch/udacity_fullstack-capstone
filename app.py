@@ -21,3 +21,5 @@ def create_app():
         return 'Hello, World!'
 
     return app
+
+from models import *

@@ -4,7 +4,7 @@ from sqlalchemy import func, ForeignKey, Column, Date, Integer, String, Time
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
 
-from .app import db
+from app import db
 
 
 class Tour(db.Model):
@@ -13,18 +13,15 @@ class Tour(db.Model):
     __tablename__ = 'tours'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer)
+    user_id = Column(Integer, nullable=False)
     activity_id = Column(Integer, ForeignKey('activities.id'))
     name = Column(String, nullable=False)
     description = Column(String)
-    startdate = Column(Date, nullable=False)
-    enddate = Column(Date, nullable=False)
+    date = Column(Date, nullable=False)
     starttime = Column(Time)
     endtime = Column(Time)
     accesslevel_id = Column(Integer, ForeignKey('accesslevels.id'))
-    startpoint = Column(Geometry(geometry_type="POINT"), nullable=False)
-    endpoint = Column(Geometry(geometry_type="POINT"))
-    path = Column(Geometry(geometry_type="LINESTRING"))
+    location = Column(Geometry(geometry_type="POINT", srid=4326), nullable=False)
 
 
 class Activity(db.Model):
@@ -35,7 +32,7 @@ class Activity(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     description = Column(String)
-    tours = relationship("Tour")
+    tours = relationship("Tour", cascade="all, delete-orphan")
 
 
 class Accesslevel(db.Model):
@@ -43,33 +40,11 @@ class Accesslevel(db.Model):
 
     Levels:
     - Public
-    - Friend
+    (- Friend) -> Future Release
     - Private"""
 
     __tablename__ = 'accesslevels'
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    tours = relationship("Tour")
-
-
-class Region(db.Model):
-    """List of geographic regions within a country."""
-
-    __tablename__ = 'regions'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    country = Column(Integer, ForeignKey('countries.id'))
-    geom = Column(Geometry(geometry_type="MULTIPOLYGON"))
-
-
-class Country(db.Model):
-    """List of countries."""
-
-    __tablename__ = 'countries'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    regions = relationship("Region")
-    geom = Column(Geometry(geometry_type="MULTIPOLYGON"))
+    tours = relationship("Tour", cascade="all, delete-orphan")
