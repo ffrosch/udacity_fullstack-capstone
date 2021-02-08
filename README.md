@@ -109,9 +109,13 @@ $ heroku config # check the app's environment variables
 For this App PostGIS is required to process geospatial information. On Windows use `cmd.exe` and login with:
 
 ```sh
-# login
+# login remote
 heroku pg:psql --app <APP NAME>
 # create extension
 create extension postgis;
 select postgis_version();
+
+# login local
+psql <DB NAME>
+create extension postgis;
 ```
