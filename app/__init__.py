@@ -16,6 +16,9 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from app.api import api
+    app.register_blueprint(api, url_prefix='/api')
+
     from app.view import view
     app.register_blueprint(view, url_prefix='')
 
