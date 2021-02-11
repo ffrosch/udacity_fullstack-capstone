@@ -63,13 +63,20 @@ class Tour(db.Model):
         data['properties'] = {
             'id': self.id,
             'user_id': self.user_id,
-            'activity_id': self.activity_id,
+            'activity': {
+                'id': self.activity.id,
+                'name': self.activity.name,
+                'description': self.activity.id
+            },
             'name': self.name,
             'description': self.description,
             'date': self.date.isoformat(),
             'starttime': self.starttime,
             'endtime': self.endtime,
-            'accesslevel_id': self.accesslevel_id
+            'accesslevel': {
+                'id': self.accesslevel.id,
+                'name': self.accesslevel.name
+            },
         }
         return data
 
@@ -86,7 +93,8 @@ class Activity(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     description = Column(String)
-    tours = relationship("Tour", cascade="all, delete-orphan")
+    tours = relationship("Tour", backref='activity', lazy='dynamic',
+                         cascade="save-update")
 
 
 class Accesslevel(db.Model):
@@ -101,4 +109,5 @@ class Accesslevel(db.Model):
 
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    tours = relationship("Tour", cascade="all, delete-orphan")
+    tours = relationship("Tour", backref='accesslevel', lazy='dynamic',
+                         cascade="save-update")
