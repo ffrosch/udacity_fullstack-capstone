@@ -29,6 +29,11 @@ class Tour(db.Model):
         return f'<{self.name}, {self.date}, {self.geo_text}>'
 
     @property
+    def geo_srid(self):
+        srid = db.session.scalar(self.location.ST_SRID())
+        return srid
+
+    @property
     def geo_text(self):
         txt = db.session.scalar(self.location.ST_AsText())
         return txt
@@ -45,6 +50,7 @@ class Tour(db.Model):
         return geo
 
     def as_shape(self):
+        # TODO: For future use
         return to_shape(self.location)
 
 
