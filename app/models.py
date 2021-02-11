@@ -28,6 +28,14 @@ class Tour(db.Model):
     def __repr__(self):
         return f'<{self.name}, {self.date}, {self.geo_text}>'
 
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @property
     def geo_srid(self):
         srid = db.session.scalar(self.location.ST_SRID())
