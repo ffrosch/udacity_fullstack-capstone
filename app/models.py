@@ -3,6 +3,7 @@ from datetime import datetime
 from sqlalchemy import func, ForeignKey, Column, Date, Integer, String, Time
 from sqlalchemy.orm import relationship
 from geoalchemy2 import Geometry
+from geoalchemy2.shape import to_shape
 
 from app import db
 
@@ -42,6 +43,9 @@ class Tour(db.Model):
         # TODO: Add all class attributes to the output
         geo = db.session.scalar(self.location.ST_AsGeoJSON())
         return geo
+
+    def as_shape(self):
+        return to_shape(self.location)
 
 
 class Activity(db.Model):
