@@ -21,7 +21,27 @@ class Tour(db.Model):
     starttime = Column(Time)
     endtime = Column(Time)
     accesslevel_id = Column(Integer, ForeignKey('accesslevels.id'))
-    location = Column(Geometry(geometry_type="POINT", srid=4326), nullable=False)
+    location = Column(Geometry(geometry_type="POINT",
+                               srid=4326), nullable=False)
+
+    def __repr__(self):
+        return f'<{self.name}, {self.date}, {self.geo_text}>'
+
+    @property
+    def geo_text(self):
+        txt = db.session.scalar(self.location.ST_AsText())
+        return txt
+
+    @property
+    def XY(self):
+        X = db.session.scalar(self.location.ST_X())
+        Y = db.session.scalar(self.location.ST_Y())
+        return X, Y
+
+    def as_geojson(self):
+        # TODO: Add all class attributes to the output
+        geo = db.session.scalar(self.location.ST_AsGeoJSON())
+        return geo
 
 
 class Activity(db.Model):
