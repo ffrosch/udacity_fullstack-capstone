@@ -1,3 +1,5 @@
+import json
+
 from datetime import datetime
 
 from sqlalchemy import func, ForeignKey, Column, Date, Integer, String, Time
@@ -53,9 +55,20 @@ class Tour(db.Model):
         return X, Y
 
     def as_geojson(self):
-        # TODO: Add all class attributes to the output
         geo = db.session.scalar(self.location.ST_AsGeoJSON())
-        return geo
+        data = json.loads(geo)
+        data['properties'] = {
+            'id': self.id,
+            'user_id': self.user_id,
+            'activity_id': self.activity_id,
+            'name': self.name,
+            'description': self.description,
+            'date': self.date.isoformat(),
+            'starttime': self.starttime,
+            'endtime': self.endtime,
+            'accesslevel_id': self.accesslevel_id
+        }
+        return data
 
     def as_shape(self):
         # TODO: For future use
