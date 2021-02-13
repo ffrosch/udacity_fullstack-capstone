@@ -1,0 +1,876 @@
+{
+	"info": {
+		"_postman_id": "55297d1c-bfc3-4796-84e9-d472fda4a2e8",
+		"name": "Tourbook/API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "public",
+			"item": [
+				{
+					"name": "/tours/2 no-auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/3 no-auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                7.900,\r\n                45.900\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 1,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"2018-12-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"User Entry\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                1.999,\r\n                99.999\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 2,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"1900-01-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"Test\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "/",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"value contains tours array\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.tours).to.be.an('array')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"tours array contains one tour\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.tours).to.have.lengthOf(1)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/999",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/999",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                7.900,\r\n                45.900\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 1,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"2018-12-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"User Entry\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                1.999,\r\n                99.999\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 2,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"1900-01-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"Test\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1MTg3ZTIwNTcwMDY4YmExNmJkIiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMjQ1NzY2LCJleHAiOjE2MTMzMzIxNjYsImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOnRvdXI6b3duIl19.SrbDn80qZMkLzC0lHrfWSE0wxtfTBOWW6My2OUhW-5udUcboaMbUhSWzvBALh4f0UPri830qAa0GB0sQyXkc00jj0mtROiwfByWpI5hCG1-AKWxTaBszn5baTTKKlUmWjJmOlv-8a9JI8z5X1slHTEm0Eta0fiHNeCMMHpePkvE7RkAldq2Bf01Iv2WOiq4MEzGmwtInUUCsQ90n-RTZvH_K7lDQdqG-QG7VYLS_QggHKmEQMoxsK2o0zC0hOPpj6XkkFbIQhMrJfSsutvUGt3PYOuh4mDo7jjwPAwYuZFLU-H9AacANUAFwWSDPheB2l0yEAfT7tPByhVXFLw3D_Q",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "moderator",
+			"item": [
+				{
+					"name": "/tour/2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"tours array contains one tour\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.tours).to.have.lengthOf(1)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                6.900,\r\n                40.900\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 2,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 1,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"2018-12-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"User Entry\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                1.999,\r\n                99.999\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 2,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"1900-01-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"Test\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1Nzg3MjY2NjUwMDZhMmFhM2UwIiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMjQ2NDE3LCJleHAiOjE2MTMzMzI4MTcsImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOmFjdGl2aXR5IiwiY3J1ZDp0b3VyOm93biJdfQ.yG55F70QodaXlxS51wZ0d_WxdNBZSdJXYu0u4vdD2yC-ty2hpo4QbbIeoIfVb3bAvIrzNfhZGmaA1iYYfNkhLLYfMcDGN6aawXcEAAGgUwS9p9DwG08mUvJl55iwoX96liIqrBW3H9WHenHmxN2hClsalUyLWFBH4tb9bS0c8vdMmSNmN2wy8nqckRxuHxd7eAFD9OitEJFdRGlNR-ahpj289urX7WVcs05DLEmWIgyE3ogb81zP5aO5rrzlcN6dlrm4rbzFbBhhFVLS0HKQlXrBTT6R-NjmCdSGMzVu1g7Fs9XcdpEabfsz3FaQXKm45oSY3XDfV0aPkqccsBAsKQ",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "/tours",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"tours array contains three tours\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.tours).to.have.lengthOf(3)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                9.900,\r\n                50.900\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 2,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"2018-12-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"User Entry\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/3 mal-formatted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 2,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"2018-12-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"User Entry\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/3 no-data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                1.999,\r\n                99.999\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1,\r\n                    \"name\": \"Public\"\r\n                },\r\n                \"activity\": {\r\n                    \"description\": 1,\r\n                    \"id\": 2,\r\n                    \"name\": \"Mountainbiking\"\r\n                },\r\n                \"date\": \"1900-01-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"id\": 3,\r\n                \"name\": \"Test\",\r\n                \"starttime\": null,\r\n                \"user_id\": \"auth0|6027f5187e20570068ba16bd\"\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1NjFjNmNlMmUwMDY5NWZmZGE5IiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMjQ2NDQ3LCJleHAiOjE2MTMzMzI4NDcsImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOmFjdGl2aXR5IiwiY3J1ZDp0b3VyOmFsbCIsImNydWQ6dG91cjpvd24iXX0.b-BqzJJ8XBEMSSIM29inPsIyerdoU40Dl-pEYzUMmIraiDGAKcZ5iF_Moq-i9VuA9_ubMTjZrDIdo9rN3IghnXoNmqzUjmDteJ22Yn9lf4MHLU3RgiGEaBXZ12cBCVstyzGbgoyzLqogKG9DQifQxbfqEfwTrzQxAYaU9g65fEGhXdfYhDcOTBO7NJ4b7ZvBttc_W_jpz5jicgmsSng8Nom4MJEOLUAlQ30Rh61RfoYQLWEy62_UzGiiqGR2FbEtC2HFY_qmPInyoaedSntt60DnsKl2q_6crlOJy9782eGv5Bb2XjACuknLJzm-yvgy0c13pRbSe8dkDnyWNyFg5Q",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:5000/api"
+		}
+	]
+}
