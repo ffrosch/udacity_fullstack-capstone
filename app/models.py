@@ -74,7 +74,6 @@ class Tour(db.Model):
         data = json.loads(geo)
         data['properties'] = {
             'id': self.id,
-            'user_id': self.user_id,
             'activity': {
                 'id': self.activity.id,
                 'name': self.activity.name,
