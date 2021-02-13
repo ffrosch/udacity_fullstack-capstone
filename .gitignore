@@ -130,3 +130,6 @@ dmypy.json
 
 # Visual Studio Code project settings
 *.code-workspace
+
+# sensitive data
+user-credentials.txt
