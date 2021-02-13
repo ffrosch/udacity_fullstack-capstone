@@ -6,25 +6,14 @@ from functools import wraps
 from app.api.auth import user_status, verify_decode_jwt, get_token_auth_header
 from app.models import Tour, Accesslevel, Activity
 
-# TODO: Remove
-def test(arg=''):
-    def test_decorator(f):
-        @wraps(f)
-        def wrapper(*args, **kwargs):
-            return f(arg, *args, **kwargs)
-        return wrapper
-    return test_decorator
 
-
-# TODO: Remove
-class TestAPI(MethodView):
-    decorators = [test('Tested')]
-
-    def get(self, x):
-        return f'Hello GET: {x}'
+class APIHome(MethodView):
+    msg = 'You are at /api/'
+    def get(self):
+        return f'Hello GET: </br></br>{self.msg}'
 
     def post(self):
-        return jsonify(success=True, message='Hello POST')
+        return jsonify(success=True, message=f'Hello POST: \n\n{self.msg}')
 
 
 # TODO: Refactor into TourPublic, TourPrivate, TourAdmin

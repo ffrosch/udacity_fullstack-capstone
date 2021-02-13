@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify
-from .routes import TestAPI, TourAPI
+from .routes import APIHome, TourAPI
 
 api = Blueprint('api', __name__)
 
-test_view = TestAPI.as_view('api')
-api.add_url_rule('/', view_func=test_view)
+home_view = APIHome.as_view('home')
+api.add_url_rule('/', view_func=home_view)
 
 tour_view = TourAPI.as_view('tours')
 api.add_url_rule('/tours/',
