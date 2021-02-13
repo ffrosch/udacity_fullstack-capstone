@@ -84,7 +84,28 @@ class TourAPI(MethodView):
         return jsonify(data), 200
 
     def patch(self, tour_id, user):
-        pass
+        tour = Tour.query.get(tour_id)
+        if tour is None:
+            abort(404)
+        if user['auth']:
+            if 'admin' not in user['permissions']:
+                if tour.user_id != user['id']:
+                    abort(403)
+        else:
+            abort(401)
+
+        body = request.get_json()
+
+        try:
+            # TODO: update values
+            pass
+        except:
+            abort(422)
+
+        data = {'success': True,
+                'tours': [tour.as_geojson()]}
+
+        return jsonify(data), 200
 
     def delete(self, tour_id, user):
         pass
