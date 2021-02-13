@@ -3,6 +3,7 @@ from flask.views import MethodView
 from sqlalchemy import and_, or_
 from functools import wraps
 
+from app.api.auth import user_status, verify_decode_jwt, get_token_auth_header
 from app.models import Tour, Accesslevel, Activity
 
 # TODO: Remove
@@ -13,29 +14,6 @@ def test(arg=''):
             return f(arg, *args, **kwargs)
         return wrapper
     return test_decorator
-
-
-def user_status(f):
-    def decorator(*args, **kwargs):
-        user = {}
-        token = None  # TODO: implement get_token_auth_header
-        payload = None  # TODO: implement get_payload
-        auth = False  # TODO: implement check_auth() -> True/False
-        if auth:
-            user['auth'] = True
-            user['permissions'] = payload['permissions']
-            user['id'] = payload['user_id']
-        else:
-            user['auth'] = False
-            user['permissions'] = []
-            user['id'] = None
-        return f(*args, user=user, **kwargs)
-    return decorator
-
-
-def get_permissions():
-    # TODO: Implement
-    pass
 
 
 # TODO: Remove
@@ -65,7 +43,7 @@ class TourAPI(MethodView):
         # GET All
         if tour_id is None:
             if user['auth']:
-                if 'admin' in user['permissions']:
+                if 'crud:tour:all' in user['permissions']:
                     tours = Tour.query.all()
                 else:
                     tours = Tour.query.filter(or_(
@@ -82,12 +60,17 @@ class TourAPI(MethodView):
             if tour is None:
                 abort(404)
             if tour.accesslevel.name == 'Private':
-                if not user['auth']:
+                if user['auth']:
+                    if 'crud:tour:all' in user['permissions']:
+                        tours = [tour]
+                    elif tour.user_id == user['id']:
+                        tours = [tour]
+                    else:
+                        abort(403)
+                else:
                     abort(401)
-                if tour.user_id != user['id']:
-                    abort(403)
-            tours = [tour]
-
+            else:
+                tours = [tour]
         data = {'success': True,
                 'tours': [tour.as_geojson() for tour in tours]}
 
@@ -98,7 +81,7 @@ class TourAPI(MethodView):
         if tour is None:
             abort(404)
         if user['auth']:
-            if 'admin' not in user['permissions']:
+            if 'crud:tour:all' not in user['permissions']:
                 if tour.user_id != user['id']:
                     abort(403)
         else:

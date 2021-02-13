@@ -16,14 +16,14 @@ class Tour(db.Model):
     __tablename__ = 'tours'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, nullable=False)
+    user_id = Column(String, nullable=False)
     activity_id = Column(Integer, ForeignKey('activities.id'))
     name = Column(String, nullable=False)
     description = Column(String)
     date = Column(Date, nullable=False)
     starttime = Column(Time)
     endtime = Column(Time)
-    accesslevel_id = Column(Integer, ForeignKey('accesslevels.id'))
+    accesslevel_id = Column(Integer, ForeignKey('accesslevels.id'), nullable=False)
     location = Column(Geometry(geometry_type="POINT",
                                srid=4326), nullable=False)
 

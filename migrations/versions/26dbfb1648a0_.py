@@ -1,17 +1,17 @@
 """empty message
 
-Revision ID: 38b7e0b54016
-Revises:
-Create Date: 2021-02-08 22:19:54.956840
+Revision ID: 26dbfb1648a0
+Revises: 
+Create Date: 2021-02-13 19:13:01.732814
 
 """
 from alembic import op
-import sqlalchemy as sa
 import geoalchemy2
+import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '38b7e0b54016'
+revision = '26dbfb1648a0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,14 +32,14 @@ def upgrade():
     )
     op.create_table('tours',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.String(), nullable=False),
     sa.Column('activity_id', sa.Integer(), nullable=True),
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('starttime', sa.Time(), nullable=True),
     sa.Column('endtime', sa.Time(), nullable=True),
-    sa.Column('accesslevel_id', sa.Integer(), nullable=True),
+    sa.Column('accesslevel_id', sa.Integer(), nullable=False),
     sa.Column('location', geoalchemy2.types.Geometry(geometry_type='POINT', srid=4326, from_text='ST_GeomFromEWKT', name='geometry'), nullable=False),
     sa.ForeignKeyConstraint(['accesslevel_id'], ['accesslevels.id'], ),
     sa.ForeignKeyConstraint(['activity_id'], ['activities.id'], ),

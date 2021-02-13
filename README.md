@@ -119,3 +119,5 @@ select postgis_version();
 psql <DB NAME>
 create extension postgis;
 ```
+
+Then run `python manage.py db init`. Afterwards, flask migrations to work properly, modify `migrations/script.py.mako` and add `import geoalchemy2`.
