@@ -48,6 +48,15 @@ class TestAPI(MethodView):
         return jsonify(success=True, message='Hello POST')
 
 
+# TODO: Refactor into TourPublic, TourPrivate, TourAdmin
+# https://stackoverflow.com/questions/28822472/extending-the-behavior-of-an-inherited-function-in-python
+# Use Inheritance and helper functions
+# class TourPrivate():
+#     def get():
+#         tours = [_get_public(), _get_private()]
+#         return tours
+
+
 class TourAPI(MethodView):
     decorators = [user_status]
 
