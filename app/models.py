@@ -26,6 +26,7 @@ class Tour(db.Model):
     accesslevel_id = Column(Integer, ForeignKey('accesslevels.id'), nullable=False)
     location = Column(Geometry(geometry_type="POINT",
                                srid=4326), nullable=False)
+
     def from_geojson(self, data):
         coords = data['coordinates']
         props = data['properties']
@@ -60,7 +61,10 @@ class Tour(db.Model):
 
     @property
     def geo_text(self):
-        txt = db.session.scalar(self.location.ST_AsText())
+        try:
+            txt = db.session.scalar(self.location.ST_AsText())
+        except:
+            txt = None
         return txt
 
     @property
