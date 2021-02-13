@@ -25,7 +25,7 @@ def create_app():
     # These errors can't be handled in blueprints
     # because the app wouldn't know which blueprint to use
     @app.errorhandler(404)
-    def _handle_404_api_error(e):
+    def _handle_404_api_error(error):
         if request.path.startswith('/api'):
             return jsonify({
                 "success": False,
@@ -33,18 +33,18 @@ def create_app():
                 "message": "not found"
             }), 404
         else:
-            return e
+            return error
 
-    @app.errorhandler(405)
-    def _handle_405_api_error(e):
+    @app.errorhandler(500)
+    def _handle_500_api_error(error):
         if request.path.startswith('/api'):
             return jsonify({
                 "success": False,
-                "error": 405,
-                "message": "not allowed"
-            }), 405
+                "error": 500,
+                "message": "internal server error"
+            }), 500
         else:
-            return e
+            return error
 
     return app
 
