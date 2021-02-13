@@ -5,7 +5,7 @@ from functools import wraps
 
 from app.models import Tour, Accesslevel, Activity
 
-
+# TODO: Remove
 def test(arg=''):
     def test_decorator(f):
         @wraps(f)
@@ -38,6 +38,7 @@ def get_permissions():
     pass
 
 
+# TODO: Remove
 class TestAPI(MethodView):
     decorators = [test('Tested')]
 
