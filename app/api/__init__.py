@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from .routes import APIHome, TourAPI
+from .routes import APIHome, TourAPI, ActivityAPI
 
 api = Blueprint('api', __name__)
 
@@ -13,6 +13,15 @@ api.add_url_rule('/tours/',
                  methods=['GET', 'POST'])
 api.add_url_rule('/tours/<int:tour_id>',
                  view_func=tour_view,
+                 methods=['GET', 'PATCH', 'DELETE'])
+
+activity_view = ActivityAPI.as_view('activity')
+api.add_url_rule('/activity/',
+                 defaults={'activity_id': None},
+                 view_func=activity_view,
+                 methods=['GET', 'POST'])
+api.add_url_rule('/activity/<int:activity_id>',
+                 view_func=activity_view,
                  methods=['GET', 'PATCH', 'DELETE'])
 
 

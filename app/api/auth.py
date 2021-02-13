@@ -130,7 +130,6 @@ def user_status(f):
             user['permissions'] = payload['permissions']
             user['id'] = payload['sub']
         except AuthError as e:
-            print(e)
             pass
         return f(*args, user=user, **kwargs)
     return decorator

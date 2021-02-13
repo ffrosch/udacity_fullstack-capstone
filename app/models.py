@@ -23,7 +23,8 @@ class Tour(db.Model):
     date = Column(Date, nullable=False)
     starttime = Column(Time)
     endtime = Column(Time)
-    accesslevel_id = Column(Integer, ForeignKey('accesslevels.id'), nullable=False)
+    accesslevel_id = Column(Integer, ForeignKey(
+        'accesslevels.id'), nullable=False)
     location = Column(Geometry(geometry_type="POINT",
                                srid=4326), nullable=False)
 
@@ -110,6 +111,30 @@ class Activity(db.Model):
     description = Column(String)
     tours = relationship("Tour", backref='activity', lazy='dynamic',
                          cascade="save-update")
+
+    def __repr__(self):
+        return f'<{self.name}: {self.description}>'
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def to_dict(self):
+        data = {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'tour_count': len(self.tours.all()),
+            'tour_ids': [tour.id for tour in self.tours.all()]
+        }
+        return data
 
 
 class Accesslevel(db.Model):

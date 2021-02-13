@@ -26,6 +26,32 @@ class APIHome(MethodView):
 #         tours = [_get_public(), _get_private()]
 #         return tours
 
+class ActivityAPI(MethodView):
+    decorators = [user_status]
+
+    def get(self, activity_id, user):
+        if activity_id is None:
+            activities = Activity.query.all()
+            data = {'success': True,
+                    'activities': [activity.to_dict() for activity in activities]}
+        else:
+            activity = Activity.query.get(activity_id)
+            if activity is None:
+                abort(404)
+            data = {'success': True,
+                    'activities': [activity.to_dict()]}
+
+        return jsonify(data), 200
+
+    def patch(self, id, user):
+        pass
+
+    def post(self, id, user):
+        pass
+
+    def delete(self, id, user):
+        pass
+
 
 class TourAPI(MethodView):
     decorators = [user_status]
