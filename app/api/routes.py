@@ -1,3 +1,5 @@
+import sys
+
 from flask import jsonify, abort, request
 from flask.views import MethodView
 from sqlalchemy import and_, or_
@@ -99,6 +101,32 @@ class TourAPI(MethodView):
             return jsonify(data), 200
         else:
             abort(500)
+
+    def post(self, user, **kwargs):
+        if not user['auth']:
+            abort(401)
+
+        authorized = 'crud:tour:own' in user['permissions']
+        if not authorized:
+            abort(401)
+
+        body = request.get_json()
+        tours = body.get('tours', [])
+        if len(tours) != 1:
+            abort(400)
+
+        try:
+            tour = Tour()
+            tour.from_geojson(tours[0])
+            tour.user_id = user['id']
+            tour.insert()
+        except:
+            print("Unexpected error:", sys.exc_info())
+            abort(500)
+
+        data = {'success': True,
+                'tours': [tour.as_geojson()]}
+        return jsonify(data), 200
 
     def delete(self, tour_id, user):
         authorized = False

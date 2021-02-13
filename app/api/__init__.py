@@ -10,7 +10,7 @@ tour_view = TourAPI.as_view('tours')
 api.add_url_rule('/tours/',
                  defaults={'tour_id': None},
                  view_func=tour_view,
-                 methods=['GET'])
+                 methods=['GET', 'POST'])
 api.add_url_rule('/tours/<int:tour_id>',
                  view_func=tour_view,
                  methods=['GET', 'PATCH', 'DELETE'])
