@@ -26,6 +26,18 @@ class Tour(db.Model):
     accesslevel_id = Column(Integer, ForeignKey('accesslevels.id'), nullable=False)
     location = Column(Geometry(geometry_type="POINT",
                                srid=4326), nullable=False)
+    def from_geojson(self, data):
+        coords = data['coordinates']
+        props = data['properties']
+
+        self.activity_id = props['activity']['id']
+        self.name = props['name']
+        self.description = props['description']
+        self.date = props['date']
+        self.starttime = props['starttime']
+        self.endtime = props['endtime']
+        self.accesslevel_id = props['accesslevel']['id']
+        self.location = f'SRID=4326;POINT({coords[0]} {coords[1]})'
 
     def __repr__(self):
         return f'<{self.name}, {self.date}, {self.geo_text}>'

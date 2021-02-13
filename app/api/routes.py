@@ -66,28 +66,37 @@ class TourAPI(MethodView):
         return jsonify(data), 200
 
     def patch(self, tour_id, user):
+        authorized = False
         tour = Tour.query.get(tour_id)
         if tour is None:
             abort(404)
+
         if user['auth']:
-            if 'crud:tour:all' not in user['permissions']:
-                if tour.user_id != user['id']:
-                    abort(403)
+            if 'crud:tour:all' in user['permissions']:
+                authorized = True
+            elif tour.user_id == user['id']:
+                authorized = True
+            else:
+                abort(403)
         else:
             abort(401)
 
-        body = request.get_json()
+        if authorized:
+            body = request.get_json()
+            tours = body.get('tours', [])
+            if len(tours) != 1:
+                abort(400)
+            try:
+                new_tour = tours[0]
+                tour.from_geojson(new_tour)
+                tour.update()
+            except:
+                abort(422)
 
-        try:
-            # TODO: update values
-            pass
-        except:
-            abort(422)
+            data = {'success': True,
+                    'tours': [tour.as_geojson()]}
 
-        data = {'success': True,
-                'tours': [tour.as_geojson()]}
-
-        return jsonify(data), 200
+            return jsonify(data), 200
 
     def delete(self, tour_id, user):
         pass
