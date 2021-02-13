@@ -97,6 +97,33 @@ class TourAPI(MethodView):
                     'tours': [tour.as_geojson()]}
 
             return jsonify(data), 200
+        else:
+            abort(500)
 
     def delete(self, tour_id, user):
-        pass
+        authorized = False
+        tour = Tour.query.get(tour_id)
+        if tour is None:
+            abort(404)
+
+        if user['auth']:
+            if 'crud:tour:all' in user['permissions']:
+                authorized = True
+            elif tour.user_id == user['id']:
+                authorized = True
+            else:
+                abort(403)
+        else:
+            abort(401)
+
+        if authorized:
+            try:
+                tour.delete()
+            except:
+                abort(422)
+
+            data = {'success': True,
+                    'deleted': tour.id}
+            return jsonify(data), 200
+        else:
+            abort(500)
