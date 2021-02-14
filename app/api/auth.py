@@ -1,5 +1,6 @@
 import json
 from flask import request
+from functools import wraps
 from jose import jwt
 from os import environ
 from urllib.request import urlopen
@@ -133,3 +134,31 @@ def user_status(f):
             pass
         return f(*args, user=user, **kwargs)
     return decorator
+
+
+def requires_auth(permission=''):
+    def requires_auth_decorator(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            token = get_token_auth_header()
+            payload = verify_decode_jwt(token)
+            check_permissions(permission, payload)
+            return f(*args, jwt=payload, **kwargs)
+
+        return wrapper
+    return requires_auth_decorator
+
+def check_permissions(permission, payload):
+    if 'permissions' not in payload:
+        raise AuthError({
+            'code': 'invalid_claims',
+            'description': 'Permissions not included in JWT.'
+        }, 400)
+
+    if permission not in payload['permissions']:
+        raise AuthError({
+            'code': 'unauthorized',
+            'description': 'Permission not found.'
+        }, 403)
+
+    return True

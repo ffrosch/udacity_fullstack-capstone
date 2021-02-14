@@ -3,14 +3,14 @@ import sys
 from flask import jsonify, abort, request
 from flask.views import MethodView
 from sqlalchemy import and_, or_
-from functools import wraps
 
-from app.api.auth import user_status, verify_decode_jwt, get_token_auth_header
+from app.api.auth import user_status, requires_auth
 from app.models import Tour, Accesslevel, Activity
 
 
 class APIHome(MethodView):
     msg = 'You are at /api/'
+
     def get(self):
         return f'Hello GET: </br></br>{self.msg}'
 
@@ -26,10 +26,10 @@ class APIHome(MethodView):
 #         tours = [_get_public(), _get_private()]
 #         return tours
 
-class ActivityAPI(MethodView):
-    decorators = [user_status]
+class ActivityAPIPublic(MethodView):
+    decorators = []
 
-    def get(self, activity_id, user):
+    def get(self, activity_id):
         if activity_id is None:
             activities = Activity.query.all()
             data = {'success': True,
@@ -43,14 +43,13 @@ class ActivityAPI(MethodView):
 
         return jsonify(data), 200
 
-    def patch(self, activity_id, user):
+class ActivityAPIModerator(MethodView):
+    decorators = [requires_auth(permission='crud:activity')]
+
+    def patch(self, activity_id, jwt):
         activity = Activity.query.get(activity_id)
         if activity is None:
             abort(404)
-        if not user['auth']:
-            abort(401)
-        if not 'crud:activity' in user['permissions']:
-            abort(403)
 
         body = request.get_json()
         activities = body.get('activities', [])
@@ -69,12 +68,7 @@ class ActivityAPI(MethodView):
 
         return jsonify(data), 200
 
-    def post(self, user, **kwargs):
-        if not user['auth']:
-            abort(401)
-        if not 'crud:activity' in user['permissions']:
-            abort(403)
-
+    def post(self, jwt, **kwargs):
         body = request.get_json()
         activities = body.get('activities', [])
         if len(activities) == 0:
@@ -95,14 +89,10 @@ class ActivityAPI(MethodView):
 
         return jsonify(data), 200
 
-    def delete(self, activity_id, user):
+    def delete(self, activity_id, jwt):
         activity = Activity.query.get(activity_id)
         if activity is None:
             abort(404)
-        if not user['auth']:
-            abort(401)
-        if not 'crud:activity' in user['permissions']:
-            abort(403)
         try:
             activity.delete()
         except:
