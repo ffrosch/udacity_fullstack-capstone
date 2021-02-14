@@ -74,7 +74,7 @@ class Tour(db.Model):
         Y = db.session.scalar(self.location.ST_Y())
         return X, Y
 
-    def as_geojson(self):
+    def to_geojson(self):
         geo = db.session.scalar(self.location.ST_AsGeoJSON())
         data = json.loads(geo)
         data['properties'] = {

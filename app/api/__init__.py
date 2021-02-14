@@ -16,11 +16,11 @@ api.add_url_rule('/tours/<int:tour_id>',
                  methods=['GET', 'PATCH', 'DELETE'])
 
 activity_view = ActivityAPI.as_view('activity')
-api.add_url_rule('/activity/',
+api.add_url_rule('/activities/',
                  defaults={'activity_id': None},
                  view_func=activity_view,
                  methods=['GET', 'POST'])
-api.add_url_rule('/activity/<int:activity_id>',
+api.add_url_rule('/activities/<int:activity_id>',
                  view_func=activity_view,
                  methods=['GET', 'PATCH', 'DELETE'])
 

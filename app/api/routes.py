@@ -43,13 +43,36 @@ class ActivityAPI(MethodView):
 
         return jsonify(data), 200
 
-    def patch(self, id, user):
+    def patch(self, activity_id, user):
+        activity = Activity.query.get(activity_id)
+        if activity is None:
+            abort(404)
+        if not user['auth']:
+            abort(401)
+        if not 'crud:activity' in user['permissions']:
+            abort(403)
+
+        body = request.get_json()
+        activities = body.get('activities', [])
+        if len(activities) != 1:
+            abort(400)
+        try:
+            new_activity = activities[0]
+            activity.name = new_activity['name']
+            activity.description = new_activity['description']
+            activity.update()
+        except:
+            abort(422)
+
+        data = {'success': True,
+                'activities': [activity.to_dict()]}
+
+        return jsonify(data), 200
+
+    def post(self, activity_id, user):
         pass
 
-    def post(self, id, user):
-        pass
-
-    def delete(self, id, user):
+    def delete(self, activity_id, user):
         pass
 
 
@@ -89,7 +112,7 @@ class TourAPI(MethodView):
             else:
                 tours = [tour]
         data = {'success': True,
-                'tours': [tour.as_geojson() for tour in tours]}
+                'tours': [tour.to_geojson() for tour in tours]}
 
         return jsonify(data), 200
 
@@ -122,7 +145,7 @@ class TourAPI(MethodView):
                 abort(422)
 
             data = {'success': True,
-                    'tours': [tour.as_geojson()]}
+                    'tours': [tour.to_geojson()]}
 
             return jsonify(data), 200
         else:
@@ -151,7 +174,7 @@ class TourAPI(MethodView):
             abort(500)
 
         data = {'success': True,
-                'tours': [tour.as_geojson()]}
+                'tours': [tour.to_geojson()]}
         return jsonify(data), 200
 
     def delete(self, tour_id, user):
