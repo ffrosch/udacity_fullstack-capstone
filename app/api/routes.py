@@ -96,7 +96,20 @@ class ActivityAPI(MethodView):
         return jsonify(data), 200
 
     def delete(self, activity_id, user):
-        pass
+        activity = Activity.query.get(activity_id)
+        if activity is None:
+            abort(404)
+        if not user['auth']:
+            abort(401)
+        if not 'crud:activity' in user['permissions']:
+            abort(403)
+        try:
+            activity.delete()
+        except:
+            abort(422)
+        data = {'success': True,
+                'deleted': activity.id}
+        return jsonify(data), 200
 
 
 class TourAPI(MethodView):
