@@ -1,17 +1,16 @@
-import os
-
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+
+from config import Config
 
 db = SQLAlchemy()
 migrate = Migrate()
 
 
-def create_app():
+def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config.from_object(config_class)
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -19,6 +18,7 @@ def create_app():
     from app.api import api
     app.register_blueprint(api, url_prefix='/api')
 
+    # TODO: Remove
     from app.view import view
     app.register_blueprint(view, url_prefix='')
 
