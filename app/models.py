@@ -1,3 +1,7 @@
+# Flask with GeoAlchemy2 Samples: https://gist.github.com/gearbox/c4c82d959c06beb3f4eead854995e369
+# Postgis Tutorial: https://github.com/jgriffith23/postgis-tutorial
+
+
 import json
 
 from datetime import datetime
