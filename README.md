@@ -121,3 +121,46 @@ create extension postgis;
 ```
 
 Then run `python manage.py db init`. Afterwards, flask migrations to work properly, modify `migrations/script.py.mako` and add `import geoalchemy2`.
+
+# Tourbook Specifications
+
+The Tourbook models an application with which users can track their outdoor adventures. For each tour they can decide whether it is public or private. Some users will have moderator rights: they can create, update or delete the available outdoor categories. Finally the application will also need users with admin rights that can look into problems, fix malformatted data or problematic entries.
+
+### Motivation
+
+Building a geospatially enabled API has been on my wish list for quite a while. The perfect choice for this was something rather simple but still super useful which naturally lead me to the idea of a tourbook app. Eventually it will also feature a Vue.js frontend coupled with OpenLayers to let users easily create and view their tours.
+
+Based on what I learned in the Fullstack Nanodegree I seized the opportunity to learn a little bit more about structuring flask applicatons and chose to implement three "novelties": 1) the application factory pattern, 2) Blueprints for routing and 3) Pluggable Views instead of normal route decorators.
+
+Because this app is meant to be geospatially enabled I decided to use the PostGIS extension for PostgreSQL instead of simply using lat/lon columns.
+
+### Specs
+
+* Models
+    * Tours with attributes user_id, activity_id, name, description, date, starttime, endtime, accesslevel_id, location
+    * Activities with attributes name, description
+    * Accesslevels with attributes name
+* Endpoints
+    * GET /tours, /tours/id, /activites and /activities/id
+    * DELETE /tours/id and /activities/id
+    * POST /tours and /activities
+    * PATCH /tours/id and /activities/id
+* Roles
+    * Anonymous
+        * Can only view public tours
+    * User, same as Anonymous plus:
+        * Can create new tours
+        * Can view private tours created by him
+        * Can modify tours created by him
+        * Can delete tours created by him
+        * Can view all activities
+    * Moderator, same as User plus:
+        * Can modify activities
+        * Can create activities
+        * Can delete activities
+    * Admin, same as Moderator plus:
+        * Can view, modify and delete any tour, even if it is private
+* Tests
+    * One test for success behavior of each endpoint
+    * One test for error behavior of each endpoint
+    * Two tests of RBAC for each role
