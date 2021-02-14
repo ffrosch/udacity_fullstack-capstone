@@ -69,8 +69,31 @@ class ActivityAPI(MethodView):
 
         return jsonify(data), 200
 
-    def post(self, activity_id, user):
-        pass
+    def post(self, user, **kwargs):
+        if not user['auth']:
+            abort(401)
+        if not 'crud:activity' in user['permissions']:
+            abort(403)
+
+        body = request.get_json()
+        activities = body.get('activities', [])
+        if len(activities) == 0:
+            abort(400)
+        try:
+            new_activities = []
+            for new_activity in activities:
+                activity = Activity()
+                activity.name = new_activity['name']
+                activity.description = new_activity['description']
+                activity.insert()
+                new_activities.append(activity)
+        except:
+            abort(422)
+
+        data = {'success': True,
+                'activities': [act.to_dict() for act in new_activities]}
+
+        return jsonify(data), 200
 
     def delete(self, activity_id, user):
         pass
