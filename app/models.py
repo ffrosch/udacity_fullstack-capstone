@@ -1,7 +1,3 @@
-# Flask with GeoAlchemy2 Samples: https://gist.github.com/gearbox/c4c82d959c06beb3f4eead854995e369
-# Postgis Tutorial: https://github.com/jgriffith23/postgis-tutorial
-
-
 import json
 
 from datetime import datetime
@@ -68,7 +64,7 @@ class Tour(db.Model):
     def geo_text(self):
         try:
             txt = db.session.scalar(self.location.ST_AsText())
-        except:
+        except ValueError:
             txt = None
         return txt
 

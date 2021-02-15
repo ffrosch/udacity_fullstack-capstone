@@ -40,14 +40,14 @@ class TestPublic(unittest.TestCase):
         db.session.commit()
 
         t1 = Tour(user_id='auth0|6027f561c6ce2e00695ffda9', activity_id=1,
-                    name='Admin Entry', date='2021-02-13', accesslevel_id=1,
-                    location='SRID=4326;POINT(7.1 46.1)')
+                  name='Admin Entry', date='2021-02-13', accesslevel_id=1,
+                  location='SRID=4326;POINT(7.1 46.1)')
         t2 = Tour(user_id='auth0|6027f578726665006a2aa3e0', activity_id=2,
-                    name='Moderator Entry', date='2020-06-06', accesslevel_id=2,
-                    location='SRID=4326;POINT(8.2 47.2)')
+                  name='Moderator Entry', date='2020-06-06', accesslevel_id=2,
+                  location='SRID=4326;POINT(8.2 47.2)')
         t3 = Tour(user_id='auth0|6027f5187e20570068ba16bd', activity_id=1,
-                    name='User Entry', date='2019-12-01', accesslevel_id=1,
-                    location='SRID=4326;POINT(9.3 48.3)')
+                  name='User Entry', date='2019-12-01', accesslevel_id=1,
+                  location='SRID=4326;POINT(9.3 48.3)')
         db.session.add_all([t1, t2, t3])
         db.session.commit()
 
@@ -57,10 +57,10 @@ class TestPublic(unittest.TestCase):
         self.app_context.pop()
 
 ################
-### Tour API ###
+#   Tour API   #
 ################
 
-### GET ###
+# GET #
     def test_get_tours(self):
         res = self.client().get('/api/tours/')
         data = json.loads(res.data)
@@ -96,7 +96,7 @@ class TestPublic(unittest.TestCase):
 
         self.assertEqual(res.status_code, 405)
 
-### PATCH ###
+# PATCH #
     def test_patch_tour_401(self):
         '''RBAC based'''
         req = self.client().get('/api/tours/1')
@@ -106,7 +106,7 @@ class TestPublic(unittest.TestCase):
 
         self.assertEqual(res.status_code, 401)
 
-### DELETE ###
+# DELETE #
     def test_delete_tour_401(self):
         '''RBAC based'''
         res = self.client().delete('/api/tours/1')
@@ -114,7 +114,7 @@ class TestPublic(unittest.TestCase):
 
         self.assertEqual(res.status_code, 401)
 
-### POST ###
+# POST #
     def test_post_tour_401(self):
         '''RBAC based'''
         req = self.client().get('/api/tours/1')
@@ -125,10 +125,10 @@ class TestPublic(unittest.TestCase):
         self.assertEqual(res.status_code, 401)
 
 ####################
-### Activity API ###
+#   Activity API   #
 ####################
 
-### GET ###
+# GET #
     def test_get_activities(self):
         res = self.client().get('/api/activities/')
         data = json.loads(res.data)
@@ -146,6 +146,7 @@ class TestPublic(unittest.TestCase):
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 404)
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

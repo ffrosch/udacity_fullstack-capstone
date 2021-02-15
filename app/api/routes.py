@@ -33,7 +33,8 @@ class ActivityAPIPublic(MethodView):
         if activity_id is None:
             activities = Activity.query.all()
             data = {'success': True,
-                    'activities': [activity.to_dict() for activity in activities]}
+                    'activities': [activity.to_dict()
+                                   for activity in activities]}
         else:
             activity = Activity.query.get(activity_id)
             if activity is None:
@@ -42,6 +43,7 @@ class ActivityAPIPublic(MethodView):
                     'activities': [activity.to_dict()]}
 
         return jsonify(data), 200
+
 
 class ActivityAPIModerator(MethodView):
     decorators = [requires_auth(permission='crud:activity')]
@@ -60,7 +62,7 @@ class ActivityAPIModerator(MethodView):
             activity.name = new_activity['name']
             activity.description = new_activity['description']
             activity.update()
-        except:
+        except:  # nopep8
             abort(422)
 
         data = {'success': True,
@@ -81,7 +83,7 @@ class ActivityAPIModerator(MethodView):
                 activity.description = new_activity['description']
                 activity.insert()
                 new_activities.append(activity)
-        except:
+        except:  # nopep8
             abort(422)
 
         data = {'success': True,
@@ -95,7 +97,7 @@ class ActivityAPIModerator(MethodView):
             abort(404)
         try:
             activity.delete()
-        except:
+        except:  # nopep8
             abort(422)
         data = {'success': True,
                 'deleted': activity.id}
@@ -167,7 +169,7 @@ class TourAPI(MethodView):
                 new_tour = tours[0]
                 tour.from_geojson(new_tour)
                 tour.update()
-            except:
+            except:  # nopep8
                 abort(422)
 
             data = {'success': True,
@@ -195,7 +197,7 @@ class TourAPI(MethodView):
             tour.from_geojson(tours[0])
             tour.user_id = user['id']
             tour.insert()
-        except:
+        except:  # nopep8
             print("Unexpected error:", sys.exc_info())
             abort(500)
 
@@ -222,7 +224,7 @@ class TourAPI(MethodView):
         if authorized:
             try:
                 tour.delete()
-            except:
+            except:  # nopep8
                 abort(422)
 
             data = {'success': True,

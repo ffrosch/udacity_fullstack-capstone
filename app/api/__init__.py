@@ -3,7 +3,7 @@ from .routes import APIHome, ActivityAPIModerator, ActivityAPIPublic, TourAPI
 
 api = Blueprint('api', __name__)
 
-from . import errors
+from . import errors  # nopep8
 
 home_view = APIHome.as_view('home')
 api.add_url_rule('/', view_func=home_view)
