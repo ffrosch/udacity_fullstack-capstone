@@ -9,6 +9,71 @@
 			"name": "public",
 			"item": [
 				{
+					"name": "/",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"tours array contains one tour\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.tours).to.have.lengthOf(1)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tours/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/tours/2 no-auth",
 					"event": [
 						{
@@ -153,6 +218,24 @@
 								"1"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "/activities/2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "/activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}
@@ -832,6 +915,46 @@
 							"path": [
 								"tours",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/tours/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tours\": [\r\n        {\r\n            \"coordinates\": [\r\n                10.00,\r\n                60.00\r\n            ],\r\n            \"properties\": {\r\n                \"accesslevel\": {\r\n                    \"id\": 1\r\n                },\r\n                \"activity\": {\r\n                    \"id\": 2\r\n                },\r\n                \"date\": \"2018-12-01\",\r\n                \"description\": null,\r\n                \"endtime\": null,\r\n                \"name\": \"User Entry\",\r\n                \"starttime\": null\r\n            },\r\n            \"type\": \"Point\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tours/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tours",
+								"1"
 							]
 						}
 					},
