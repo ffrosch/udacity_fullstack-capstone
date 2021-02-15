@@ -216,3 +216,289 @@ python test_user.py
 python test_moderator.py
 python test_admin.py
 ```
+
+# API Reference
+
+### Getting started
+
+If the app is run locally it will be hosted at https://localhost:5000/. The API can be accessed at https://localhost:5000/api.
+
+The API response depends on the users role. Authentication can be done by providing a valid `JWT` as `Bearer Token` inside the headers.
+
+### Error handling
+
+Errors are returned as JSON objects in the following format:
+
+```bash
+{
+    'success': False,
+    'error': 400,
+    'message': 'bad request'
+}
+```
+
+### GET /tours/
+* Sample: `curl http://localhost:5000/api/tours/`
+```bash
+{
+    "success": true,
+    "tours": [
+        {
+            "coordinates": [
+                7.1,
+                46.1
+            ],
+            "properties": {
+                "accesslevel": {
+                    "id": 1,
+                    "name": "Public"
+                },
+                "activity": {
+                    "description": 1,
+                    "id": 1,
+                    "name": "Mountainbiking"
+                },
+                "date": "2021-02-13",
+                "description": null,
+                "endtime": null,
+                "id": 1,
+                "name": "Admin Entry",
+                "starttime": null
+            },
+            "type": "Point"
+        },
+        {
+            "coordinates": [
+                1.999,
+                99.999
+            ],
+            "properties": {
+                "accesslevel": {
+                    "id": 1,
+                    "name": "Public"
+                },
+                "activity": {
+                    "description": 2,
+                    "id": 2,
+                    "name": "Mountaineering"
+                },
+                "date": "1900-01-01",
+                "description": null,
+                "endtime": null,
+                "id": 5,
+                "name": "Test",
+                "starttime": null
+            },
+            "type": "Point"
+        }
+    ]
+}
+```
+
+### GET /tours/id
+* Sample: `curl http://localhost:5000/api/tours/1`
+```bash
+{
+    "success": true,
+    "tours": [
+        {
+            "coordinates": [
+                7.1,
+                46.1
+            ],
+            "properties": {
+                "accesslevel": {
+                    "id": 1,
+                    "name": "Public"
+                },
+                "activity": {
+                    "description": 1,
+                    "id": 1,
+                    "name": "Mountainbiking"
+                },
+                "date": "2021-02-13",
+                "description": null,
+                "endtime": null,
+                "id": 1,
+                "name": "Admin Entry",
+                "starttime": null
+            },
+            "type": "Point"
+        }
+    ]
+}
+```
+
+### PATCH /tours/id
+* Sample: `curl -X PATCH http://localhost:5000/api/tours/1 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -d ${JSON}`
+```bash
+{
+    "success": true,
+    "tours": [
+        {
+            "coordinates": [
+                7.1,
+                46.1
+            ],
+            "properties": {
+                "accesslevel": {
+                    "id": 1,
+                    "name": "Public"
+                },
+                "activity": {
+                    "description": 1,
+                    "id": 1,
+                    "name": "Mountainbiking"
+                },
+                "date": "2021-02-13",
+                "description": null,
+                "endtime": null,
+                "id": 1,
+                "name": "Admin Entry",
+                "starttime": null
+            },
+            "type": "Point"
+        }
+    ]
+}
+```
+
+### POST /tours/
+* Sample: `curl -X POST http://localhost:5000/api/tours/ -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -d ${JSON}`
+```bash
+{
+    "success": true,
+    "tours": [
+        {
+            "coordinates": [
+                7.1,
+                46.1
+            ],
+            "properties": {
+                "accesslevel": {
+                    "id": 1,
+                    "name": "Public"
+                },
+                "activity": {
+                    "description": 1,
+                    "id": 1,
+                    "name": "Mountainbiking"
+                },
+                "date": "2021-02-13",
+                "description": null,
+                "endtime": null,
+                "id": 1,
+                "name": "Admin Entry",
+                "starttime": null
+            },
+            "type": "Point"
+        }
+    ]
+}
+```
+
+### DELETE /tours/id
+* Sample: `curl -X DELETE http://localhost:5000/api/tours/1 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}"`
+```bash
+{
+    "deleted": 5,
+    "success": true
+}
+```
+
+### GET /activities/
+* Sample: `curl http://localhost:5000/api/activities/`
+```bash
+{
+    "activities": [
+        {
+            "description": "Ascending a mountain",
+            "id": 2,
+            "name": "Mountaineering",
+            "tour_count": 4,
+            "tour_ids": [2,3,6,1]
+        },
+        {
+            "description": "Riding your Bike on Trails - It's awesome!",
+            "id": 1,
+            "name": "Mountainbiking",
+            "tour_count": 0,
+            "tour_ids": []
+        },
+        {
+            "description": "Flying through nature",
+            "id": 4,
+            "name": "Paragliding",
+            "tour_count": 0,
+            "tour_ids": []
+        }
+    ],
+    "success": true
+}
+```
+
+### GET /activities/id
+* Sample: `curl http://localhost:5000/api/activities/2`
+```bash
+{
+    "activities": [
+        {
+            "description": "Ascending a mountain",
+            "id": 2,
+            "name": "Mountaineering",
+            "tour_count": 4,
+            "tour_ids": [2,3,6,1]
+        }
+}
+```
+
+### PATCH /activities/id
+* Sample: `curl -X PATCH http://localhost:5000/api/activities/1 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -d ${JSON}`
+```bash
+{
+    "activities": [
+        {
+            "description": "Riding your Bike on Trails - It's awesome!",
+            "id": 1,
+            "name": "Mountainbiking",
+            "tour_count": 0,
+            "tour_ids": []
+        }
+    ],
+    "success": true
+}
+```
+
+### POST /activities/
+* Sample: `curl -X POST http://localhost:5000/api/activities/ -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" -d '{"activities": [{"description": "Walking through nature","name": "Hiking"},{"description": "Flying through nature","name": "Paragliding"}]}'`
+
+```bash
+{
+    "activities": [
+        {
+            "description": "Walking through nature",
+            "id": 5,
+            "name": "Hiking",
+            "tour_count": 0,
+            "tour_ids": []
+        },
+        {
+            "description": "Flying through nature",
+            "id": 6,
+            "name": "Paragliding",
+            "tour_count": 0,
+            "tour_ids": []
+        }
+    ],
+    "success": true
+}
+```
+
+### DELETE /activities/id
+* Sample: `curl -X DELETE http://localhost:5000/api/activities/4 -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}"`
+```bash
+{
+    "deleted": 4,
+    "success": true
+}
+```
