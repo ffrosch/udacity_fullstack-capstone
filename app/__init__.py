@@ -18,7 +18,6 @@ def create_app(config_class=Config):
     from app.api import api
     app.register_blueprint(api, url_prefix='/api')
 
-    # TODO: Remove
     from app.view import view
     app.register_blueprint(view, url_prefix='')
 

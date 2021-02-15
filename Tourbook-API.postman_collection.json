@@ -124,6 +124,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/activities/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/activities/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"activities",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -370,6 +401,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/activities/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/activities/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"activities",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -377,7 +439,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1MTg3ZTIwNTcwMDY4YmExNmJkIiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMjQ1NzY2LCJleHAiOjE2MTMzMzIxNjYsImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOnRvdXI6b3duIl19.SrbDn80qZMkLzC0lHrfWSE0wxtfTBOWW6My2OUhW-5udUcboaMbUhSWzvBALh4f0UPri830qAa0GB0sQyXkc00jj0mtROiwfByWpI5hCG1-AKWxTaBszn5baTTKKlUmWjJmOlv-8a9JI8z5X1slHTEm0Eta0fiHNeCMMHpePkvE7RkAldq2Bf01Iv2WOiq4MEzGmwtInUUCsQ90n-RTZvH_K7lDQdqG-QG7VYLS_QggHKmEQMoxsK2o0zC0hOPpj6XkkFbIQhMrJfSsutvUGt3PYOuh4mDo7jjwPAwYuZFLU-H9AacANUAFwWSDPheB2l0yEAfT7tPByhVXFLw3D_Q",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1MTg3ZTIwNTcwMDY4YmExNmJkIiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMzQzMjE3LCJleHAiOjE2MTM0Mjk2MTcsImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOnRvdXI6b3duIl19.bExzyhoy9xOkBaiFc4W9IhWPlCIvi_Bg5lZeF1hlExqFP12JtfXNlZNXUHS67y5yE-yP5vPBDp52yG7ODcKBa9xZKUZY9fAbWHZwt_7tia9UkT6a8qO5JJbUmlrnp6sdXaXKsD6qO_zZ1QAicDd4hLVq61qVC8u0BZDmadlhtR01NBOX717jD2Brthx4A8snS1FEToXgfndHyylxl5oPjOBVhV99cTVOBsikJGMNNZ7rj0002W_T78wTMQU2IKuzmtPv8HwzelxaC2wqtvQzXFdMiyYxiwK6sNBbwhWsEFUWm3Vq8mMF7Zp1OhTTuRg2sFqvxNOiun8RruydmuDTJA",
 						"type": "string"
 					}
 				]
@@ -521,6 +583,117 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/activities/1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"activities\": [\r\n        {\r\n            \"description\": \"Riding your Bike on Trails - It's awesome!\",\r\n            \"name\": \"Mountainbiking\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/activities/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"activities",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/activities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"activities\": [\r\n        {\r\n            \"description\": \"Walking through nature\",\r\n            \"name\": \"Hiking\"\r\n        },\r\n        {\r\n            \"description\": \"Flying through nature\",\r\n            \"name\": \"Paragliding\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/activities/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"activities",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/activities/3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/activities/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"activities",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -528,7 +701,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1Nzg3MjY2NjUwMDZhMmFhM2UwIiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMjQ2NDE3LCJleHAiOjE2MTMzMzI4MTcsImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOmFjdGl2aXR5IiwiY3J1ZDp0b3VyOm93biJdfQ.yG55F70QodaXlxS51wZ0d_WxdNBZSdJXYu0u4vdD2yC-ty2hpo4QbbIeoIfVb3bAvIrzNfhZGmaA1iYYfNkhLLYfMcDGN6aawXcEAAGgUwS9p9DwG08mUvJl55iwoX96liIqrBW3H9WHenHmxN2hClsalUyLWFBH4tb9bS0c8vdMmSNmN2wy8nqckRxuHxd7eAFD9OitEJFdRGlNR-ahpj289urX7WVcs05DLEmWIgyE3ogb81zP5aO5rrzlcN6dlrm4rbzFbBhhFVLS0HKQlXrBTT6R-NjmCdSGMzVu1g7Fs9XcdpEabfsz3FaQXKm45oSY3XDfV0aPkqccsBAsKQ",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1Nzg3MjY2NjUwMDZhMmFhM2UwIiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMzQ0NjQyLCJleHAiOjE2MTM0MzEwNDIsImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOmFjdGl2aXR5IiwiY3J1ZDp0b3VyOm93biJdfQ.JncB0bo3pzXqvDGQcghwZjSDjaUFyyzaPek5_0WjeCQub6uT5xFisg_ZgWKpn6z9stU4nqjdHe-0ZXxhwGFnnJT9B-Xvlulom50PZMX1wAY5T5lI4E7Oc1fe7TH3H1QTUEukzsg_NPcO1CdDUMF8EFEw2aVJW1z2W5J_ci9XdPnanu-6wUwlFWvpgDfkqa4FxsFTD-tt9GK6EKJHtRs1JUrqHczr3oYVPWYi3QEx4Oa9iQesrEy6l7ldB4AdI0QEQcjM3hSD3WM38ZN3RHAUQYgshEo1WTfRpO9Kqal5SmVCRPieS-Nla4IWircREGKuX7qLOemZ6vMqGRH5cU-vtA",
 						"type": "string"
 					}
 				]
@@ -570,7 +743,7 @@
 									"\r",
 									"pm.test(\"tours array contains three tours\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.tours).to.have.lengthOf(3)\r",
+									"    pm.expect(jsonData.tours).to.have.lengthOf(5)\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -581,12 +754,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/tours",
+							"raw": "{{host}}/tours/",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"tours"
+								"tours",
+								""
 							]
 						}
 					},
@@ -820,7 +994,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1NjFjNmNlMmUwMDY5NWZmZGE5IiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMjQ2NDQ3LCJleHAiOjE2MTMzMzI4NDcsImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOmFjdGl2aXR5IiwiY3J1ZDp0b3VyOmFsbCIsImNydWQ6dG91cjpvd24iXX0.b-BqzJJ8XBEMSSIM29inPsIyerdoU40Dl-pEYzUMmIraiDGAKcZ5iF_Moq-i9VuA9_ubMTjZrDIdo9rN3IghnXoNmqzUjmDteJ22Yn9lf4MHLU3RgiGEaBXZ12cBCVstyzGbgoyzLqogKG9DQifQxbfqEfwTrzQxAYaU9g65fEGhXdfYhDcOTBO7NJ4b7ZvBttc_W_jpz5jicgmsSng8Nom4MJEOLUAlQ30Rh61RfoYQLWEy62_UzGiiqGR2FbEtC2HFY_qmPInyoaedSntt60DnsKl2q_6crlOJy9782eGv5Bb2XjACuknLJzm-yvgy0c13pRbSe8dkDnyWNyFg5Q",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkxzRmtSb3RnTnJnWUF3R25vUjI1MCJ9.eyJpc3MiOiJodHRwczovL3N0dXJtcHVscy5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAyN2Y1NjFjNmNlMmUwMDY5NWZmZGE5IiwiYXVkIjoidWRhY2l0eS1jYXBzdG9uZS1iYWNrZW5kIiwiaWF0IjoxNjEzMzQ3MTk5LCJleHAiOjE2MTM0MzM1OTksImF6cCI6IlluaDFDRVJBVVVJWTRYcVUzMmNCczR4VmlPOUVYaFFHIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJjcnVkOmFjdGl2aXR5IiwiY3J1ZDp0b3VyOmFsbCIsImNydWQ6dG91cjpvd24iXX0.HlywLJiEGp4X_wBx1lCv88o9nVky7gd8l-LDs85eEXxK1onuxj_nfq0hZk-jmnRsP_S-UoDq_T8kmzBSPasJo2Sk6TzS_5CnRc03mSEjL9rehSB1SfGZA2V9aJkMrevnOwVc_PyS9L0McaPER71ILZAVzylw69J7hs0dD9kZAGJP7cIo2uTzDnyBPQFcH5StDk5DIuHTM8OmxEFpLlSC5UENk_5gQvYqOLpEulQVNKb5v5tHg4cxviecHFzdTnDhW_ozUFSFS5k2PrTz2dXlbK8HEsWE_n4hnt_nn5woGMsh9owOxBzBYaWR2Ng6ygdQLnqhR-OQdGZzsNpCY7zLtg",
 						"type": "string"
 					}
 				]
