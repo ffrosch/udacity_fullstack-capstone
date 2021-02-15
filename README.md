@@ -43,6 +43,19 @@ Because this app is meant to be geospatially enabled I decided to use the PostGI
     * One test for error behavior of each endpoint
     * Two tests of RBAC for each role
 
+## URL
+https://sturmpuls-capstone-backend.herokuapp.com/api
+
+## Authentication
+url: [Get Auth Token](https://sturmpuls.eu.auth0.com/authorize?audience=udacity-capstone-backend&response_type=token&client_id=Ynh1CERAUUIY4XqU32cBs4xViO9EXhQG&redirect_uri=http://localhost:5000/api/&prompt=login)
+
+users:
+* tour-public@example.com
+* tour-moderator@example.com
+* tour-admin@example.com
+
+password for all: capstone2021#
+
 ## Prerequisites & Setup Local
 
 1. Clone this GitHub Repo.
